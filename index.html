@@ -1,178 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Only You ❤️</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For Palak ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:url("images/bg.jpg") center/cover no-repeat fixed;
-}
+  :root{
+    --pink:#ff4b84;
+    --deep:#b3003b;
+    --card:#ffffffee;
+  }
 
-.overlay{
-  background:rgba(255,235,242,0.9);
-  min-height:100vh;
-  padding:25px;
-  text-align:center;
-}
+  body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+    background:#000;
+  }
 
-h1,h2{
-  font-family:'Great Vibes',cursive;
-  color:#b3003b;
-}
+  /* Background photo */
+  .bg{
+    position:fixed; inset:0;
+    background:url("images/bg.jpg") center/cover no-repeat;
+    transform:scale(1.05);
+    z-index:-3;
+  }
+  .bg::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(135deg, rgba(255,232,240,.88), rgba(255,255,255,.55));
+    backdrop-filter: blur(6px);
+  }
 
-p{
-  font-family:'Playfair Display',serif;
-  font-size:18px;
-}
+  /* Cute internet stickers */
+  .sticker{
+    position:fixed;
+    width:92px;
+    opacity:.92;
+    z-index:-1;
+    animation: floaty 4s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .s1{ left:14px; top:18px; animation-delay:.2s;}
+  .s2{ right:18px; top:120px; width:112px; animation-delay:1.1s;}
+  .s3{ left:18px; bottom:40px; width:102px; animation-delay:.7s;}
+  @keyframes floaty{
+    0%,100%{ transform:translateY(0) rotate(-2deg); }
+    50%{ transform:translateY(-12px) rotate(2deg); }
+  }
 
-.card{
-  background:white;
-  border-radius:25px;
-  padding:25px;
-  max-width:450px;
-  margin:30px auto;
-  box-shadow:0 15px 30px rgba(0,0,0,0.2);
-  animation:fade 1s;
-}
+  /* Hearts rain */
+  .heart{
+    position:fixed;
+    top:-20px;
+    font-size:18px;
+    animation: fall linear forwards;
+    opacity:.85;
+    z-index:-2;
+    pointer-events:none;
+  }
+  @keyframes fall{
+    to{ transform:translateY(110vh); opacity:0; }
+  }
 
-@keyframes fade{
-  from{opacity:0;transform:translateY(15px)}
-  to{opacity:1;transform:translateY(0)}
-}
+  .wrap{
+    min-height:100vh;
+    padding:26px 14px 70px;
+    text-align:center;
+  }
 
-button{
-  background:#ff5c8a;
-  color:white;
-  border:none;
-  padding:12px 28px;
-  border-radius:30px;
-  font-size:16px;
-  cursor:pointer;
-  margin:10px;
-}
+  h1,h2{
+    font-family:'Great Vibes',cursive;
+    color:var(--deep);
+    margin:10px 0;
+    text-shadow:0 8px 24px rgba(0,0,0,.12);
+  }
+  .sub{
+    font-family:'Playfair Display',serif;
+    color:#4b1c2b;
+    max-width:560px;
+    margin:0 auto 16px;
+    font-size:18px;
+    line-height:1.45;
+  }
 
-.hidden{display:none;}
+  .card{
+    max-width:540px;
+    margin:18px auto;
+    background:var(--card);
+    border-radius:26px;
+    padding:22px 18px;
+    box-shadow:0 18px 40px rgba(0,0,0,.18);
+    animation: popIn .65s ease both;
+  }
+  @keyframes popIn{
+    from{ opacity:0; transform:translateY(16px) scale(.985);}
+    to{ opacity:1; transform:translateY(0) scale(1);}
+  }
 
-img{
-  max-width:100%;
-  border-radius:20px;
-  margin-top:15px;
-  animation:float 3s infinite;
-}
+  .btn{
+    background:var(--pink);
+    color:white;
+    border:none;
+    border-radius:999px;
+    padding:12px 22px;
+    margin:10px 8px 0;
+    font-size:16px;
+    cursor:pointer;
+    transition:.18s transform, .18s filter;
+    box-shadow:0 12px 22px rgba(255,75,132,.28);
+  }
+  .btn:hover{ transform:translateY(-2px); filter:brightness(.98); }
+  .btn:active{ transform:translateY(1px); }
 
-@keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-  100%{transform:translateY(0)}
-}
+  .hidden{ display:none; }
 
-/* collage */
-.collage{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
+  /* Collage */
+  .collage{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:12px;
+  }
+  .collage img, .media{
+    width:100%;
+    border-radius:18px;
+    box-shadow:0 10px 18px rgba(0,0,0,.12);
+  }
+
+  /* Slideshow */
+  .slideBox{
+    position:relative;
+    overflow:hidden;
+    border-radius:18px;
+    margin-top:12px;
+  }
+  .slideBox img{
+    width:100%;
+    display:block;
+    animation: gentleZoom 6s ease-in-out infinite;
+  }
+  @keyframes gentleZoom{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.04); }
+  }
+
+  /* Heartbeat */
+  .pulse{ display:inline-block; animation: pulse 1.2s infinite; }
+  @keyframes pulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08);} }
+
+  /* Runaway NO buttons arena */
+  .arena{
+    position:relative;
+    height:120px;
+    margin-top:6px;
+  }
+  #no1, #no2{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+  }
+  #no1{ top:10px; }
+  #no2{ top:10px; }
+
+  /* Gifts */
+  .gifts{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+  .gift{
+    width:92px;
+    border-radius:20px;
+    background:white;
+    padding:10px;
+    box-shadow:0 14px 24px rgba(0,0,0,.12);
+    cursor:pointer;
+    transition:.2s transform;
+  }
+  .gift:hover{ transform:translateY(-3px) rotate(-1deg); }
+  .gift img{ width:100%; border-radius:14px; }
+
+  /* Modal */
+  .modal{
+    position:fixed; inset:0;
+    background:rgba(0,0,0,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    z-index:10;
+  }
+  .modalCard{
+    background:white;
+    max-width:560px;
+    width:100%;
+    border-radius:24px;
+    padding:16px;
+    text-align:center;
+    animation: popIn .35s ease both;
+  }
+  .modalCard img{ width:100%; border-radius:18px; }
+  .modalText{
+    font-family:'Playfair Display',serif;
+    margin:10px 6px 6px;
+    color:#4b1c2b;
+    font-size:18px;
+    line-height:1.45;
+  }
+
+  /* Confetti */
+  .confetti{
+    position:fixed;
+    width:10px; height:14px;
+    top:-20px;
+    animation: confFall linear forwards;
+    z-index:9;
+    pointer-events:none;
+  }
+  @keyframes confFall{
+    to{ transform:translateY(110vh) rotate(720deg); opacity:0; }
+  }
+
+  /* Cinematic loader */
+  .loader{
+    position:fixed; inset:0;
+    background:linear-gradient(135deg,#ffd6e6,#fff);
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    z-index:100;
+    text-align:center;
+    padding:18px;
+  }
+  .loader h1{ font-size:54px; margin:0; }
+  .progress{
+    width:260px;height:10px;border-radius:999px;background:#ffe3ef;margin-top:18px;overflow:hidden;
+  }
+  .bar{width:0%;height:100%;background:var(--pink);border-radius:999px;transition:width .2s;}
+  .small{font-size:14px;opacity:.75;margin-top:10px}
+
+  /* Music button */
+  .musicBtn{
+    position:fixed; right:14px; bottom:14px;
+    background:#ffffffcc;
+    border:1px solid #ffd1e0;
+    color:#b3003b;
+    border-radius:999px;
+    padding:10px 14px;
+    cursor:pointer;
+    box-shadow:0 10px 18px rgba(0,0,0,.12);
+    z-index:60;
+    font-family:'Poppins',sans-serif;
+  }
+  .musicBtn strong{ font-weight:600; }
 </style>
 </head>
 
 <body>
-<div class="overlay">
+  <div class="bg"></div>
 
-<h1>Hey My Heart 🌸</h1>
-<p>
-From the moment you walked into my life,<br>
-everything felt softer… warmer… real.
-</p>
+  <!-- Cute stickers from internet -->
+  <img class="sticker s1" src="https://pngimg.com/uploads/teddy_bear/teddy_bear_PNG23.png" alt="">
+  <img class="sticker s2" src="https://pngimg.com/uploads/rose/rose_PNG66746.png" alt="">
+  <img class="sticker s3" src="https://pngimg.com/uploads/heart/heart_PNG51348.png" alt="">
 
-<!-- STEP 1 -->
-<div class="card" id="step1">
-  <p>Before I say anything…<br>can I show you something close to my heart? 🥺</p>
-  <button onclick="show('collage')">Yes 💕</button>
-  <button id="no1">No 😜</button>
-</div>
-
-<!-- COLLAGE -->
-<div class="card hidden" id="collage">
-  <h2>Us ❤️</h2>
-  <div class="collage">
-    <img src="images/c1.jpg">
-    <img src="images/c2.jpg">
-    <img src="images/c3.jpg">
-    <img src="images/c4.jpg">
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <h1>For Palak <span class="pulse">❤️</span></h1>
+    <div class="sub" style="margin-top:10px;">
+      Palak, I made this because some feelings deserve effort.<br>
+      And you… deserve the softest kind of love.
+    </div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="small">Loading memories…</div>
   </div>
-  <p>
-    Every picture holds a memory,<br>
-    every memory holds *you*.
-  </p>
-  <button onclick="show('slide')">Next 💫</button>
-</div>
 
-<!-- SLIDESHOW -->
-<div class="card hidden" id="slide">
-  <h2>My Favourite Story 💞</h2>
-  <img id="slideshow" src="images/s1.jpg">
-  <button onclick="show('question')">Next 💘</button>
-</div>
+  <div class="wrap" id="app" style="display:none;">
+    <h1>Hey Palak <span class="pulse">💗</span></h1>
+    <div class="sub">
+      You didn’t just enter my life…<br>
+      you changed the way my heart feels about everything.
+    </div>
 
-<!-- QUESTION -->
-<div class="card hidden" id="question">
-  <img src="images/teddy.jpg">
-  <p>
-    I may not be perfect,<br>
-    but loving you is the most perfect thing I do.
-  </p>
-  <h2>Will you be my Valentine? 🌹</h2>
-  <button id="no2">No 🙈</button>
-  <button onclick="show('final')">Yes ❤️</button>
-</div>
+    <!-- Step 1 -->
+    <div class="card" id="step1">
+      <h2>Can I show you something? 🌸</h2>
+      <div class="sub">
+        I made this so you can feel how softly my heart says your name.
+      </div>
 
-<!-- FINAL -->
-<div class="card hidden" id="final">
-  <h1>It’s Always You 💍</h1>
-  <img src="images/final.jpg">
-  <p>
-    I choose you today.<br>
-    I’ll choose you tomorrow.<br>
-    And every day after that — it’ll still be you.
-  </p>
-</div>
+      <button class="btn" onclick="show('collage')">Yes 💕</button>
+      <div class="arena">
+        <button class="btn" id="no1">No 😜</button>
+      </div>
+    </div>
 
-</div>
+    <!-- Collage -->
+    <div class="card hidden" id="collage">
+      <h2>Us, in little moments 💞</h2>
+      <div class="sub">Proof that love looks like this…</div>
+
+      <div class="collage">
+        <img src="images/c1.jpg" alt="">
+        <img src="images/c2.jpg" alt="">
+        <img src="images/c3.jpg" alt="">
+        <img src="images/c4.jpg" alt="">
+      </div>
+
+      <button class="btn" onclick="show('slideshow')">Next ✨</button>
+    </div>
+
+    <!-- Slideshow -->
+    <div class="card hidden" id="slideshow">
+      <h2>My favourite memories 💫</h2>
+      <div class="sub">
+        I don’t need perfect days…<br>
+        I just need days with you.
+      </div>
+
+      <div class="slideBox">
+        <img id="slider" src="images/s1.jpg" alt="">
+      </div>
+
+      <button class="btn" onclick="show('question')">Next 💘</button>
+    </div>
+
+    <!-- Question -->
+    <div class="card hidden" id="question">
+      <h2>Okay… one question 🥺</h2>
+      <div class="sub">
+        Palak… if I could choose one place to be forever,<br>
+        it would be right next to you.
+      </div>
+
+      <h2>Will you be my Valentine? 🌹</h2>
+
+      <button class="btn" onclick="yesFlow()">Of course 💖</button>
+      <div class="arena">
+        <button class="btn" id="no2">No 🙈</button>
+      </div>
+    </div>
+
+    <!-- Gifts -->
+    <div class="card hidden" id="gifts">
+      <h2>Open your gifts 🎁</h2>
+      <div class="sub">Each one is a little piece of my heart.</div>
+
+      <div class="gifts">
+        <div class="gift" onclick="openGift(1)">
+          <img src="https://i.imgur.com/7yUvePI.png" alt="">
+        </div>
+        <div class="gift" onclick="openGift(2)">
+          <img src="https://i.imgur.com/7yUvePI.png" alt="">
+        </div>
+        <div class="gift" onclick="openGift(3)">
+          <img src="https://i.imgur.com/7yUvePI.png" alt="">
+        </div>
+      </div>
+
+      <button class="btn" onclick="show('final')">One last thing… 💍</button>
+    </div>
+
+    <!-- Final -->
+    <div class="card hidden" id="final">
+      <h1>It’s You. Always You. 💍</h1>
+      <img class="media" src="images/final.jpg" alt="">
+      <div class="modalText">
+        Palak, I don’t promise perfection…<br>
+        but I promise effort, honesty,<br>
+        and a love that chooses you — every single day.
+      </div>
+      <button class="btn" onclick="finalBurst()">💖 One more surprise</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" onclick="closeModal()">
+    <div class="modalCard" onclick="event.stopPropagation()">
+      <img id="modalImg" src="" alt="">
+      <div class="modalText" id="modalText"></div>
+      <button class="btn" onclick="closeModal()">Close 💗</button>
+    </div>
+  </div>
+
+  <!-- Music -->
+  <audio id="bgm" loop>
+    <source src="audio/song.mp3" type="audio/mpeg">
+  </audio>
+  <button class="musicBtn" id="musicBtn" onclick="toggleMusic()">🎶 <strong>Tap for music</strong></button>
 
 <script>
-// runaway NO buttons
-function runaway(btn){
-  btn.addEventListener("mouseover",()=>{
-    btn.style.position="absolute";
-    btn.style.left=Math.random()*70+"%";
-    btn.style.top=Math.random()*70+"%";
-  });
-}
-runaway(document.getElementById("no1"));
-runaway(document.getElementById("no2"));
+  /* Loader */
+  let prog = 0;
+  const bar = document.getElementById('bar');
+  const loader = document.getElementById('loader');
+  const app = document.getElementById('app');
 
-// slideshow
-let slides=["images/s1.jpg","images/s2.jpg","images/s3.jpg","images/s4.jpg"];
-let i=0;
-setInterval(()=>{
-  let img=document.getElementById("slideshow");
-  if(img){
-    i=(i+1)%slides.length;
-    img.src=slides[i];
+  const loadInt = setInterval(()=>{
+    prog += 6;
+    bar.style.width = prog + "%";
+    if(prog >= 100){
+      clearInterval(loadInt);
+      loader.style.display = "none";
+      app.style.display = "block";
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+  }, 120);
+
+  /* Hearts rain */
+  function spawnHeart(){
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = Math.random() > 0.5 ? '💗' : '💖';
+    h.style.left = Math.random()*100 + 'vw';
+    h.style.animationDuration = (3 + Math.random()*3) + 's';
+    h.style.fontSize = (14 + Math.random()*18) + 'px';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 6500);
   }
-},2500);
+  setInterval(spawnHeart, 350);
 
-// navigation
-function show(id){
-  document.querySelectorAll(".card").forEach(c=>c.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-}
+  /* Runaway NO */
+  function runaway(btn){
+    const move = () => {
+      btn.style.left = (10 + Math.random()*80) + "%";
+      btn.style.top  = (0 + Math.random()*65) + "%";
+      btn.style.transform = "translateX(-50%)";
+    };
+    btn.addEventListener("mouseenter", move);
+    btn.addEventListener("click", move);
+    setTimeout(move, 250);
+  }
+  runaway(document.getElementById("no1"));
+  runaway(document.getElementById("no2"));
+
+  /* Slideshow */
+  const slides = ["images/s1.jpg","images/s2.jpg","images/s3.jpg","images/s4.jpg"];
+  let si = 0;
+  setInterval(()=>{
+    const img = document.getElementById("slider");
+    if(!img) return;
+    si = (si + 1) % slides.length;
+    img.style.opacity = 0.2;
+    setTimeout(()=>{ img.src = slides[si]; img.style.opacity = 1; }, 250);
+  }, 2600);
+
+  /* Navigation */
+  function show(id){
+    document.querySelectorAll('.card').forEach(c=>c.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  /* Confetti */
+  function confettiBurst(count=90){
+    for(let i=0;i<count;i++){
+      const c = document.createElement('div');
+      c.className='confetti';
+      c.style.left = Math.random()*100 + 'vw';
+      c.style.background = `hsl(${Math.random()*360}, 90%, 60%)`;
+      c.style.animationDuration = (2.2 + Math.random()*2.4) + 's';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(), 5000);
+    }
+  }
+
+  function yesFlow(){
+    confettiBurst(120);
+    show('gifts');
+  }
+
+  function finalBurst(){
+    confettiBurst(160);
+  }
+
+  /* Gifts modal (uses your slideshow pics) */
+  function openGift(n){
+    const modal = document.getElementById('modal');
+    const img = document.getElementById('modalImg');
+    const text = document.getElementById('modalText');
+
+    if(n===1){
+      img.src = "images/s2.jpg";
+      text.innerHTML = "Gift 1 💌<br>Palak, every time I look at us… I feel lucky, because I get to love you.";
+    } else if(n===2){
+      img.src = "images/s3.jpg";
+      text.innerHTML = "Gift 2 🌸<br>I don’t want perfect love… I want real love — with you.";
+    } else {
+      img.src = "images/s1.jpg";
+      text.innerHTML = "Gift 3 💖<br>My favourite place is wherever your hand fits in mine.";
+    }
+
+    modal.style.display = "flex";
+  }
+  function closeModal(){ document.getElementById('modal').style.display = "none"; }
+
+  /* Music */
+  let playing = false;
+  function toggleMusic(){
+    const a = document.getElementById("bgm");
+    const btn = document.getElementById("musicBtn");
+    if(!playing){
+      a.play().catch(()=>{});
+      playing = true;
+      btn.innerHTML = "⏸️ <strong>Pause music</strong>";
+    }else{
+      a.pause();
+      playing = false;
+      btn.innerHTML = "🎶 <strong>Play music</strong>";
+    }
+  }
 </script>
-
 </body>
 </html>
