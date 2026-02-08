@@ -2,95 +2,154 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Surprise 💖</title>
+<title>For You ❤️</title>
+
+<!-- Romantic fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
+
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background: black;
-    color: white;
-    text-align: center;
     margin: 0;
-    padding: 30px;
+    font-family: 'Playfair Display', serif;
+    background: url("images/bg.jpg") center/cover no-repeat fixed;
   }
-  .card {
-    background: #ffe6ec;
+
+  .overlay {
+    background: rgba(255, 230, 238, 0.88);
+    min-height: 100vh;
+    padding: 30px;
+    text-align: center;
+  }
+
+  h1, h2 {
+    font-family: 'Great Vibes', cursive;
     color: #b3003b;
-    padding: 30px;
-    border-radius: 20px;
-    max-width: 420px;
-    margin: 40px auto;
   }
+
+  .card {
+    background: white;
+    border-radius: 25px;
+    padding: 30px;
+    max-width: 420px;
+    margin: 30px auto;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  }
+
   button {
-    background: pink;
+    background: #ff5c8a;
+    color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 24px;
     margin: 10px;
-    border-radius: 20px;
+    border-radius: 25px;
     font-size: 16px;
     cursor: pointer;
   }
+
+  button:hover {
+    background: #e84a73;
+  }
+
   .hidden {
     display: none;
   }
-  .gifts img {
-    width: 90px;
-    margin: 10px;
-    cursor: pointer;
+
+  img {
+    max-width: 100%;
+    border-radius: 20px;
+    margin-top: 15px;
   }
 </style>
 </head>
 
 <body>
+<div class="overlay">
 
-<h2>
-They say people don’t put effort into relationships anymore.<br>
-But they’ve never seen what people in love actually look like.
-</h2>
+<h1>Hey You 🌸</h1>
+<p>Today is Propose Day… and this is from my heart 💗</p>
 
+<!-- STEP 1 -->
 <div class="card" id="step1">
-  <h3>Hey! I made something for you 💗<br>Do you wanna see?</h3>
-  <button onclick="show('howdare')">No</button>
-  <button onclick="show('good')">Yes</button>
+  <p>
+    I don’t know the perfect words,<br>
+    but I know the feeling is real.
+    <br><br>
+    Do you wanna see something special? 🥺
+  </p>
+  <button onclick="show('good')">Yes 💕</button>
+  <button onclick="show('step1')">No 😜</button>
 </div>
 
-<div class="card hidden" id="howdare">
-  <h3>HOW DARE YOU 😾</h3>
-  <button onclick="show('step1')">Try again</button>
-</div>
-
+<!-- SLIDESHOW -->
 <div class="card hidden" id="good">
-  <h3>GOOOOOD 🐻💞</h3>
-  <button onclick="show('valentine')">Next</button>
+  <p>
+    Every picture with you<br>
+    holds a memory I never want to forget.
+  </p>
+  <img id="slide" src="images/slide1.jpg">
+  <button onclick="show('valentine')">Next 💘</button>
 </div>
 
+<!-- VALENTINE QUESTION -->
 <div class="card hidden" id="valentine">
-  <h3>Will you be my Valentine? 🥺💘</h3>
-  <button onclick="show('nope')">nopes</button>
-  <button onclick="show('gifts')">ofc</button>
+  <p>
+    You make my normal days brighter,<br>
+    my smiles wider,<br>
+    and my heart feel safe.
+  </p>
+  <h2>Will you be my Valentine? ❤️</h2>
+  <button onclick="show('nope')">no 😝</button>
+  <button onclick="show('gifts')">yes 💖</button>
 </div>
 
+<!-- NO OPTION -->
 <div class="card hidden" id="nope">
-  <h3>did you say no??? 😤</h3>
-  <button onclick="show('valentine')">try again</button>
+  <p>Wrong answer 😤</p>
+  <button onclick="show('valentine')">Try again 😌</button>
 </div>
 
+<!-- GIFTS -->
 <div class="card hidden" id="gifts">
-  <h3>Choose your gift 🎁</h3>
-  <div class="gifts">
-    <img src="https://i.imgur.com/7yUvePI.png"
-         onclick="alert('Gift 1 💌\\nA love letter just for you ❤️')">
-    <img src="https://i.imgur.com/7yUvePI.png"
-         onclick="alert('Gift 2 🥰\\nAll our memories together 💕')">
-    <img src="https://i.imgur.com/7yUvePI.png"
-         onclick="alert('Gift 3 ❤️\\nI LOVE YOU FOREVER 💖')">
-  </div>
+  <h2>These are for you 🎁</h2>
+  <p>Little pieces of what I feel for you</p>
+  <img src="images/gift1.jpg">
+  <img src="images/gift2.jpg">
+  <button onclick="show('final')">One last thing… 💍</button>
+</div>
+
+<!-- FINAL PROPOSAL -->
+<div class="card hidden" id="final">
+  <h1>It’s You. Always You ❤️</h1>
+  <img src="images/proposal.jpg">
+  <p>
+    I don’t promise perfection,<br>
+    but I promise effort, loyalty,<br>
+    and choosing you every single day.
+  </p>
+</div>
+
 </div>
 
 <script>
+/* slideshow */
+let slides = [
+  "images/slide1.jpg",
+  "images/slide2.jpg",
+  "images/slide3.jpg"
+];
+let i = 0;
+
+setInterval(() => {
+  let img = document.getElementById("slide");
+  if (img) {
+    i = (i + 1) % slides.length;
+    img.src = slides[i];
+  }
+}, 2500);
+
+/* navigation */
 function show(id) {
-  document.querySelectorAll('.card').forEach(card => {
-    card.classList.add('hidden');
-  });
+  document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
 }
 </script>
